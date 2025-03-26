@@ -1,0 +1,36 @@
+/*
+Theme Name: Shoptimizer Child Theme
+Theme URI: 
+Description: Child theme of Shoptimizer
+Author: CommerceGurus
+Author URI: 
+Template: shoptimizer
+Version: 1.2.2
+License:         	GNU General Public License v2 or later
+License URI:     	http://www.gnu.org/licenses/gpl-2.0.html
+*/
+@media (min-width: 993px){
+	.main-header .site-header-cart.menu .cart-contents .amount {
+    display: none;
+	}
+	ul#menu-secondary-menu>li {
+    min-width: 40px;
+   }
+	.main-header .site-header-cart {
+    display: block !important;
+    margin-left: 30px;
+    }
+}
+@media (max-width: 992px){
+	.site-header .site-header-cart a.cart-contents .amount{
+		display: none;
+	}
+	.shoptimizer-myaccount svg{
+		width:28px!important;
+		height:28px!important;
+	}
+}
+li#menu-item-7002>a, li#menu-item-7001>a {
+    font-size: 0;
+}
+#menu-item-7001.menu-item{border-left:0!important;margin-left:5px!important;}
