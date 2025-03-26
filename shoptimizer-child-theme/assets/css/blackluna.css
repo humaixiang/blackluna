@@ -1,0 +1,11 @@
+@media screen and (min-width: 767px) {
+    .swiper-mobile-banner {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 749px){
+    .swiper-pc-banner {
+        display: none;
+    }
+}
