@@ -29,6 +29,9 @@ License URI:     	http://www.gnu.org/licenses/gpl-2.0.html
 		width:28px!important;
 		height:28px!important;
 	}
+	.site-footer .col-full{
+		grid-template-columns: repeat(2, 1fr);
+	}
 }
 li#menu-item-7002>a, li#menu-item-7001>a {
     font-size: 0;
