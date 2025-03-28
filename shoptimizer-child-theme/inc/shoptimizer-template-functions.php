@@ -40,13 +40,13 @@ if ( ! function_exists( 'shoptimizer_comment' ) ) {
 		<div class="comment-body">
 		<div class="comment-meta commentmetadata">
 			<div class="comment-author vcard">
-			<?php echo get_avatar( $comment, 128 ); ?>			
+			<?php echo get_avatar( $comment, 128 ); ?>
 			</div>
 			<?php if ( '0' == $comment->comment_approved ) : ?>
 				<em class="comment-awaiting-moderation"><?php esc_html_e( 'Your comment is awaiting moderation.', 'shoptimizer' ); ?></em>
 				<br />
 			<?php endif; ?>
-		
+
 		</div>
 		<?php if ( 'div' !== $args['style'] ) : ?>
 		<div id="div-comment-<?php comment_ID(); ?>" class="comment-content">
@@ -107,7 +107,7 @@ if ( ! function_exists( 'shoptimizer_sticky_header_display' ) ) :
 		if ( 'enable' === $shoptimizer_sticky_header ) {
 
 			// Don't enable this if header-4 is chosen.
-			if ( 'header-4' !== $shoptimizer_header_layout ) { 
+			if ( 'header-4' !== $shoptimizer_header_layout ) {
 
 			$shoptimizer_sticky_header_js  = '';
 			$shoptimizer_sticky_header_js .= "
@@ -123,8 +123,8 @@ if ( ! function_exists( 'shoptimizer_sticky_header_display' ) ) :
 		";
 
 		wp_add_inline_script( 'shoptimizer-main', $shoptimizer_sticky_header_js );
-			
-		} 	
+
+		}
 
 		?>
 		<?php
@@ -160,11 +160,11 @@ if ( ! function_exists( 'shoptimizer_mobile_overlay' ) ) {
 	 * @since  1.0.0
 	 */
 	function shoptimizer_mobile_overlay() {
-		
+
 			?>
 		<div class="mobile-overlay"></div>
 			<?php
-		
+
 	}
 }
 
@@ -188,7 +188,7 @@ if ( ! function_exists( 'shoptimizer_below_content' ) ) {
 				<?php dynamic_sidebar( 'below-content' ); ?>
 			</div>
 		</div>
-		<?php } ?>	
+		<?php } ?>
 			<?php
 		}
 	}
@@ -208,12 +208,12 @@ if ( ! function_exists( 'shoptimizer_footer_widgets' ) ) {
 
 			?>
 			<?php if ( 'show' === $shoptimizer_footer_display ) { ?>
-		<footer class="site-footer woshizhangsan">
+		<footer class="site-footer">
 			<div class="col-full">
 				<?php dynamic_sidebar( 'footer' ); ?>
 			</div>
 		</footer>
-		<?php } ?>	
+		<?php } ?>
 			<?php
 		}
 	}
@@ -238,7 +238,7 @@ if ( ! function_exists( 'shoptimizer_footer_copyright' ) ) {
 				<?php dynamic_sidebar( 'copyright' ); ?>
 			</div>
 		</footer>
-		<?php } ?>	
+		<?php } ?>
 			<?php
 		}
 	}
@@ -276,7 +276,7 @@ if ( ! function_exists( 'shoptimizer_top_bar' ) ) {
 				</div>
 			</div>
 		</div>
-		<?php } ?>	
+		<?php } ?>
 		<?php
 	}
 }
@@ -298,7 +298,7 @@ if ( ! function_exists( 'shoptimizer_sticky_js_trigger' ) ) {
 			$shoptimizer_header_layout = sanitize_text_field( $_GET['header'] );
 		}
 
-		if ( 'header-4' !== $shoptimizer_header_layout ) { 
+		if ( 'header-4' !== $shoptimizer_header_layout ) {
 			?>
 			<div class="s-observer"></div>
 		<?php
@@ -322,7 +322,7 @@ if ( ! function_exists( 'shoptimizer_header_wrapper_open' ) ) {
 			$shoptimizer_header_layout = sanitize_text_field( $_GET['header'] );
 		}
 
-		if ( 'header-4' === $shoptimizer_header_layout ) { 
+		if ( 'header-4' === $shoptimizer_header_layout ) {
 			?>
 			<div class="header-4-container">
 				<div class="header-4-inner">
@@ -338,7 +338,7 @@ if ( ! function_exists( 'shoptimizer_header_wrapper_close' ) ) {
 		 * @since  1.0.0
 		 * @return void
 		 */
-		function shoptimizer_header_wrapper_close() { 
+		function shoptimizer_header_wrapper_close() {
 		$shoptimizer_header_layout = '';
 		$shoptimizer_header_layout = shoptimizer_get_option( 'shoptimizer_header_layout' );
 
@@ -346,7 +346,7 @@ if ( ! function_exists( 'shoptimizer_header_wrapper_close' ) ) {
 			$shoptimizer_header_layout = sanitize_text_field( $_GET['header'] );
 		}
 
-		if ( 'header-4' === $shoptimizer_header_layout ) { 
+		if ( 'header-4' === $shoptimizer_header_layout ) {
 			?>
 			</div>
 			</div><!--/h4-->
@@ -373,7 +373,7 @@ if ( ! function_exists( 'shoptimizer_site_branding' ) ) {
 				<span class="bar"></span><span class="bar"></span><span class="bar"></span>
 				<?php if ( 'yes' === $shoptimizer_mobile_menu_text_display ) { ?>
 				<span class="bar-text"><?php echo shoptimizer_safe_html( $shoptimizer_mobile_menu_text ); ?></span>
-				<?php } ?>	
+				<?php } ?>
 			</button>
 			<?php shoptimizer_site_title_or_logo(); ?>
 		</div>
@@ -399,7 +399,7 @@ if ( ! function_exists( 'shoptimizer_myaccount_icon' ) ) {
 					</a>
 				</div>
 			<?php
-		
+
 	}
 }
 
@@ -496,7 +496,7 @@ if ( ! function_exists( 'shoptimizer_primary_navigation' ) ) {
 	$shoptimizer_menu_hover_intent = shoptimizer_get_option( 'shoptimizer_menu_hover_intent' );
 
 	?>
-		
+
 			<?php if ( true === $shoptimizer_menu_hover_intent ) { ?>
 
 			<nav id="site-navigation" class="main-navigation hover-intent" aria-label="<?php esc_attr_e( 'Primary Navigation', 'shoptimizer' ); ?>">
@@ -516,19 +516,19 @@ if ( ! function_exists( 'shoptimizer_primary_navigation' ) ) {
 			<div class="primary-navigation with-logo">
 			<?php } else { ?>
 
-			<div class="primary-navigation">				
+			<div class="primary-navigation">
 			<?php } ?>
 
-			<?php if ( $shoptimizer_logo_mark_image ) { 
-				if ( 'header-4' !== $shoptimizer_header_layout ) { ?>				
+			<?php if ( $shoptimizer_logo_mark_image ) {
+				if ( 'header-4' !== $shoptimizer_header_layout ) { ?>
 					<div class="logo-mark">
 						<a href="#" rel="home">
 							<img loading="lazy" src="<?php echo shoptimizer_safe_html( $shoptimizer_logo_mark_image ); ?>" alt="<?php bloginfo( 'name' ); ?>" />
-						</a>    
+						</a>
 					</div>
 
-				<?php } 
-			} ?>		
+				<?php }
+			} ?>
 			<?php
 
 			if ( has_nav_menu( 'primary' ) ) {
@@ -551,7 +551,7 @@ if ( ! function_exists( 'shoptimizer_primary_navigation' ) ) {
 
 			else {
 				?>
-					
+
 			<div class="menu-primary-menu-container">
 				<ul id="menu-primary-menu" class="menu">
 				<?php
@@ -565,10 +565,10 @@ if ( ! function_exists( 'shoptimizer_primary_navigation' ) ) {
 					);
 				?>
 				</ul>
-			</div>			
+			</div>
 		<?php } ?>
 
-		<?php 
+		<?php
 		if ( has_nav_menu( 'mobile' ) ) {
 				?>
 			<div class="menu-primary-menu-container shoptimizer-mobile-menu">
@@ -611,7 +611,7 @@ if ( ! function_exists( 'shoptimizer_secondary_navigation' ) ) {
 		if ( has_nav_menu( 'secondary' ) ) {
 
 			// Don't enable this if header-4 is chosen.
-			if ( 'header-4' !== $shoptimizer_header_layout ) { 
+			if ( 'header-4' !== $shoptimizer_header_layout ) {
 			?>
 				<nav class="secondary-navigation" aria-label="<?php esc_attr_e( 'Secondary Navigation', 'shoptimizer' ); ?>">
 					<?php
@@ -660,7 +660,7 @@ if ( ! function_exists( 'shoptimizer_page_header' ) ) {
 		</header><!-- .entry-header -->
 		<?php } ?>
 		<?php
-		
+
 	}
 }
 
@@ -817,7 +817,7 @@ if ( ! function_exists( 'shoptimizer_post_meta' ) ) {
 			?>
 			<?php if ( true === $shoptimizer_layout_blog_author ) { ?>
 			<div class="vcard author">
-				
+
 				<?php
 					echo '<div class="avatar">';
 					echo get_avatar( get_the_author_meta( 'ID' ), 256 );
@@ -870,10 +870,10 @@ if ( ! function_exists( 'shoptimizer_post_meta' ) ) {
 
 		</aside>
 
-		<?php if ( true === $shoptimizer_layout_blog_prev_next ) { 
+		<?php if ( true === $shoptimizer_layout_blog_prev_next ) {
 		if (is_singular('post')) {
 		?>
-		
+
 		<div class="shoptimizer-posts-prev-next">
 
 			<?php if ( get_previous_post() ) { ?>
@@ -893,12 +893,12 @@ if ( ! function_exists( 'shoptimizer_post_meta' ) ) {
 				); ?>
 				<?php next_post_link('%link'); ?>
 			</div>
-	 
-			<?php } ?> 
+
+			<?php } ?>
 
 		</div>
 
-		<?php 
+		<?php
 			}
 		} ?>
 
@@ -1264,15 +1264,15 @@ if ( ! function_exists( 'shoptimizer_search_modal' ) ) {
 	                <button aria-label="Close modal" class="shoptimizer-modal--button_close" data-dismiss="modal">
 	                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
 	                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-	                    </svg>                      
+	                    </svg>
 	                </button>
 	            </form>
 
                 <div class="shoptimizer-modal--content">
-                    
+
 		            <?php if ( shoptimizer_is_woocommerce_activated() ) { ?>
-						
-			            <?php 
+
+			            <?php
 						if ( 'enable' === $shoptimizer_layout_search_display ) { ?>
 
 							<?php if ( 'outline' === $shoptimizer_layout_search_display_type ) { ?>
@@ -1345,7 +1345,7 @@ if ( ! function_exists( 'shoptimizer_search_modal' ) ) {
 					<?php if ( 'regular' === $shoptimizer_layout_search_display ) { ?>
 						<?php get_search_form(); ?>
 					<?php } ?>
-					
+
            		</div>
         	</div>
         </dialog>
