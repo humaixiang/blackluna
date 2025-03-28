@@ -1,11 +1,13 @@
+.swiper-mobile-banner,.swiper-pc-banner{
+    display: none;
+}
 @media screen and (min-width: 767px) {
-    .swiper-mobile-banner {
-        display: none;
+    .page-template .swiper-pc-banner {
+        display: block;
     }
 }
-
 @media screen and (max-width: 749px){
-    .swiper-pc-banner {
-        display: none;
+    .page-template .swiper-mobile-banner {
+        display: block;
     }
 }
