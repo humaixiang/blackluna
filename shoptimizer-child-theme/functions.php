@@ -94,3 +94,4 @@ foreach ($inc_files as $file) {
     remove_action( 'shoptimizer_navigation', 'shoptimizer_header_cart', 60 );
  }
 
+ define( 'WC_MAX_LINKED_VARIATIONS', 1000 ); // ‌:ml-citation{ref="2" data="citationList"}
