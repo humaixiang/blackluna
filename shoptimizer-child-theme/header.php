@@ -79,27 +79,31 @@
 	</div>
 
 	<?php
-	// 在<body>开始标签后插入以下修改后的代码
-	$pc_banners = array_filter((array)get_option('theme_pc_slider_images', []));
-	$mobile_banners = array_filter((array)get_option('theme_mobile_slider_images', []));
+		// 在<body>开始标签后插入以下修改后的代码
+		$pc_banners = array_filter((array)get_option('theme_pc_slider_images', []));
+		$pc_links = array_filter((array)get_option('theme_pc_slider_links', []));
+		$mobile_banners = array_filter((array)get_option('theme_mobile_slider_images', []));
+		$mobile_links = array_filter((array)get_option('theme_mobile_slider_links', []));
 
-	// 当任一设备有数据时加载组件
-	if (!empty($pc_banners) || !empty($mobile_banners)) :
-		// 合并数据并结构化传递
-		$banner_args = [
-			'pc'     => $pc_banners,
-			'mobile' => $mobile_banners,
-			'device' => wp_is_mobile() ? 'mobile' : 'pc'
-		];
-		
-		// 传递参数给模板文件
-		set_query_var('banner_config', $banner_args);
-		get_template_part('template-parts/banner-slider');
-		
-		// 清理查询变量
-		wp_reset_query();
-	endif;
-	?>
+		// 当任一设备有数据时加载组件
+		if (!empty($pc_banners) ||!empty($mobile_banners)) :
+			// 合并数据并结构化传递
+			$banner_args = [
+				'pc'     => $pc_banners,
+				'pc_links' => $pc_links,
+				'mobile' => $mobile_banners,
+				'mobile_links' => $mobile_links,
+				'device' => wp_is_mobile()? 'mobile' : 'pc'
+			];
+			
+			// 传递参数给模板文件
+			set_query_var('banner_config', $banner_args);
+			get_template_part('template-parts/banner-slider');
+			
+			// 清理查询变量
+			wp_reset_query();
+		endif;
+		?>
 
 
 

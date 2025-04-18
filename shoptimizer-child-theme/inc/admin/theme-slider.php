@@ -2,7 +2,6 @@
 // 注册设置项
 require_once(__DIR__.'/theme-admin.php');
 
-
 // 核心功能类
 class Theme_Slider_Manager {
     public function __construct() {
@@ -34,6 +33,18 @@ class Theme_Slider_Manager {
             ]
         );
 
+        // 新增 PC 端链接设置项
+        register_setting(
+            'theme_pc_group', 
+            'theme_pc_slider_links',
+            [
+                'type' => 'array',
+                'sanitize_callback' => function($input) {
+                    return $this->sanitize_slider_links($input, 'pc');
+                }
+            ]
+        );
+
         add_settings_section(
             'pc_slider_section',
             '', 
@@ -49,6 +60,14 @@ class Theme_Slider_Manager {
             'pc_slider_section'  // 区块ID
         );
 
+        add_settings_field(
+            'pc_slider_links',  // 字段ID
+            '图片链接',          // 字段标题
+            [$this, 'pc_slider_links_callback'], // 回调方法
+            'theme-pc-slider',   // 页面slug
+            'pc_slider_section'  // 区块ID
+        );
+
         // ====================== 移动端配置 ====================== 
         register_setting(
             'theme_mobile_group',  
@@ -57,6 +76,18 @@ class Theme_Slider_Manager {
                 'type' => 'array',
                 'sanitize_callback' => function($input) {
                     return $this->sanitize_slider_images($input, 'mobile'); 
+                }
+            ]
+        );
+
+        // 新增移动端链接设置项
+        register_setting(
+            'theme_mobile_group',  
+            'theme_mobile_slider_links', 
+            [
+                'type' => 'array',
+                'sanitize_callback' => function($input) {
+                    return $this->sanitize_slider_links($input,'mobile'); 
                 }
             ]
         );
@@ -76,26 +107,12 @@ class Theme_Slider_Manager {
             'mobile_slider_section'   
         );
 
-
-        
-
-        register_setting(
-            'theme_mobile_group',
-            'theme_mobile_slider_images',
-            [
-                'type' => 'array',
-                'sanitize_callback' => function($input) {
-                    return $this->sanitize_slider_images($input, 'mobile');
-                }
-            ]
-        );
-
         add_settings_field(
-            'mobile_slider_images',
-            '上传图片',
-            [$this, 'mobile_slider_callback'],
-            'theme-mobile-slider',
-            'mobile_slider_section'
+            'mobile_slider_links',  
+            '图片链接',               
+            [$this,'mobile_slider_links_callback'], 
+            'theme-mobile-slider',    
+            'mobile_slider_section'   
         );
     }
 
@@ -116,6 +133,16 @@ class Theme_Slider_Manager {
         }, $input);
     }
 
+    // 链接过滤函数
+    private function sanitize_slider_links($input, $device) {
+        if (!is_array($input)) {
+            $input = json_decode(wp_unslash($input), true) ?: [];
+        }
+    
+        return array_map(function($link) {
+            return esc_url_raw($link);
+        }, $input);
+    }
 
     // 前端组件回调
     public function pc_slider_callback() {
@@ -129,14 +156,14 @@ class Theme_Slider_Manager {
     private function device_slider_callback($device) {
         $option_name = "theme_{$device}_slider_images";
         
-        // 修复点1：强制数组转换 + 安全过滤
+        // 强制数组转换 + 安全过滤
         $raw_images = get_option($option_name, []);
         $images = is_array($raw_images) ? $raw_images : [];
         $images = array_filter($images, function($item) {
             return isset($item['url']) && !empty($item['url']);
         });
     
-        // 修复点2：正确的数组结构遍历 
+        // 正确的数组结构遍历 
         ?>
         <div class="slider-uploader" data-device="<?php echo esc_attr($device); ?>">
             <input type="hidden" 
@@ -164,7 +191,45 @@ class Theme_Slider_Manager {
         </div>
         <?php
     }
+
+    // 链接输入框回调
+    public function pc_slider_links_callback() {
+        $this->device_slider_links_callback('pc');
+    }
+
+    public function mobile_slider_links_callback() {
+        $this->device_slider_links_callback('mobile');
+    }
+
+    private function device_slider_links_callback($device) {
+        $option_name = "theme_{$device}_slider_links";
+        
+        $links = get_option($option_name, []);
+        if (!is_array($links)) {
+            $links = [];
+        }
     
+        ?>
+        <div class="slider-link-uploader" data-device="<?php echo esc_attr($device); ?>">
+            <input type="hidden" 
+                   name="<?php echo esc_attr($option_name); ?>" 
+                   value="<?php echo esc_attr(json_encode($links)); ?>">
+    
+            <div class="slider-link-preview">
+                <?php foreach ($links as $index => $link) : ?>
+                    <div class="link-item">
+                        <input type="text" class="slider-link" value="<?php echo esc_attr($link); ?>" placeholder="输入链接">
+                        <a href="#" class="remove-slider-link" data-index="<?php echo $index; ?>">×</a>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+    
+            <button type="button" class="button add-slider-link">
+                <?php esc_html_e('添加链接'); ?>
+            </button>
+        </div>
+        <?php
+    }
 
     // 加载脚本
     public function enqueue_assets($hook) {
@@ -198,6 +263,7 @@ class Theme_Slider_Manager {
     
         $device = sanitize_text_field($_POST['device'] ?? '');
         $raw_images = json_decode(wp_unslash($_POST['images']), true) ?: [];
+        $raw_links = json_decode(wp_unslash($_POST['links']), true) ?: [];
     
         // 结构化存储 
         $valid_images = array_map(function($img) use ($device) {
@@ -207,21 +273,33 @@ class Theme_Slider_Manager {
                 'time' => time()
             ];
         }, $raw_images);
+
+        $valid_links = array_map(function($link) {
+            return esc_url_raw($link);
+        }, $raw_links);
     
         // 强制刷新option缓存 
         wp_cache_delete("theme_{$device}_slider_images", 'options');
         update_option("theme_{$device}_slider_images", $valid_images, false);
+
+        wp_cache_delete("theme_{$device}_slider_links", 'options');
+        update_option("theme_{$device}_slider_links", $valid_links, false);
     
         // 返回新预览数据
         ob_start();
-        foreach ($valid_images as $img) {
+        foreach ($valid_images as $index => $img) {
+            $link = isset($valid_links[$index]) ? $valid_links[$index] : '';
             echo '<div class="preview-item">',
                  '<img src="'.esc_url($img['url']).'" style="height:80px;">',
                  '<a href="#" class="remove-slider" data-url="'.esc_attr($img['url']).'">×</a>',
+                 '<div class="link-item">',
+                 '<input type="text" class="slider-link" value="'.esc_attr($link).'" placeholder="输入链接">',
+                 '<a href="#" class="remove-slider-link" data-index="'. $index.'">×</a>',
+                 '</div>',
                  '</div>';
         }
         wp_send_json_success(['preview' => ob_get_clean()]);
     }
 }
 
-new Theme_Slider_Manager();
+new Theme_Slider_Manager();    
