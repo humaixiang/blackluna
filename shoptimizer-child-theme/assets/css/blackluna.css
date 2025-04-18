@@ -2,12 +2,12 @@
     display: none;
 }
 @media screen and (min-width: 767px) {
-    .page-template .swiper-pc-banner {
+    .home .swiper-pc-banner {
         display: block;
     }
 }
 @media screen and (max-width: 749px){
-    .page-template .swiper-mobile-banner {
+    .home  .swiper-mobile-banner {
         display: block;
     }
 }
