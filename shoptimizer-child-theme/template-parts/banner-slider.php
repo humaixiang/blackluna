@@ -25,7 +25,7 @@ extract($config); // 解构数组为变量
                 <div class="swiper-slide">
                     <a href="<?php echo esc_url($link); ?>" target="_blank">
                         <img src="<?php echo esc_url($url); ?>" 
-                            alt="<?php echo esc_attr($item['alt'] ?? __('电脑端轮播图', 'textdomain')); ?>"
+                            alt="<?php echo esc_attr($item['alt'] ?? __('slide show', 'textdomain')); ?>"
                             loading="lazy">
                     </a>
                 </div>
@@ -47,7 +47,7 @@ extract($config); // 解构数组为变量
                 <div class="swiper-slide">
                     <a href="<?php echo esc_url($link); ?>" target="_blank">
                         <img src="<?php echo esc_url($url); ?>" 
-                            alt="<?php echo esc_attr($item['alt'] ?? __('手机端轮播图', 'textdomain')); ?>"
+                            alt="<?php echo esc_attr($item['alt'] ?? __('slide show', 'textdomain')); ?>"
                             loading="lazy">
                     </a>
                 </div>
