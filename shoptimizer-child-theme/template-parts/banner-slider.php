@@ -56,3 +56,4 @@ extract($config); // 解构数组为变量
     <?php if(count($mobile) > 1) : ?>
         <div class="swiper-pagination"></div>
     <?php endif; ?>
+</div>
