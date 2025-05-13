@@ -95,3 +95,22 @@ foreach ($inc_files as $file) {
  }
 
  define( 'WC_MAX_LINKED_VARIATIONS', 1000 ); // ‌:ml-citation{ref="2" data="citationList"}
+
+ /**
+ * @snippet       Variable Product Price Range: "From: min_price"
+ * @how-to        businessbloomer.com/woocommerce-customization
+ * @author        Rodolfo Melogli, Business Bloomer
+ * @compatible    WooCommerce 9
+ * @community     https://businessbloomer.com/club/
+ */
+ 
+add_filter( 'woocommerce_format_price_range', 'bbloomer_variation_price_format_min', 9999, 3 );
+ 
+function bbloomer_variation_price_format_min( $price, $from, $to ) {
+   return wc_get_price_html_from_text() . sprintf( _x( '%1$s', 'Price range: from', 'bbloomer' ), is_numeric( $from ) ? wc_price( $from ) : $from );
+}
+
+function custom_wc_ajax_variation_threshold( $qty, $product ) {
+    return 100;
+}
+add_filter( 'woocommerce_ajax_variation_threshold', 'custom_wc_ajax_variation_threshold', 10, 2 );
