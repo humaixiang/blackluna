@@ -11,3 +11,9 @@
         display: block;
     }
 }
+.shoptimizer-archive .product .product-details-wrapper .cgkit-as-variation-price {
+    display: none !important;
+}
+.shoptimizer-archive .product .product-details-wrapper .cgkit-as-variation-price+.product-label{
+    display: none !important;
+}
