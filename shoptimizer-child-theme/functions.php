@@ -102,8 +102,3 @@ function custom_wc_ajax_variation_threshold( $qty, $product ) {
 }
 add_filter( 'woocommerce_ajax_variation_threshold', 'custom_wc_ajax_variation_threshold', 10, 2 );
 
-add_filter( 'woocommerce_variation_is_active', 'allow_out_of_stock_variations', 10, 2 );
-function allow_out_of_stock_variations( $is_active, $variation ) {
-    // 始终返回true，允许无库存的变体被点击
-    return true;
-}
