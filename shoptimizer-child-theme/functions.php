@@ -102,7 +102,7 @@ function custom_wc_ajax_variation_threshold( $qty, $product ) {
 }
 add_filter( 'woocommerce_ajax_variation_threshold', 'custom_wc_ajax_variation_threshold', 10, 2 );
 
-add_filter('woocommerce_dropdown_variation_attribute_options_html', 'customize_out_of_stock_attributes', 10, 2);
+add_filter('woocommerce_dropdown_variation_attribute_options_html', 'customize_out_of_stock_attributes', 99, 2);
 function customize_out_of_stock_attributes($html, $args) {
     // 移除disabled属性和特定CSS类
     $html = str_replace(['disabled="disabled"', 'cgkit-disabled'], '', $html);
